@@ -20,8 +20,8 @@ LOOP_LABELS = {
 }
 
 
-def _requester_line(track: Track) -> str:
-    return f"Pedido por {track.requester.mention}" if track.requester else "Pedido automáticamente"
+def _requester_text(track: Track) -> str:
+    return track.requester.mention if track.requester else "Automático"
 
 
 def build_now_playing_embed(state: "GuildMusicState") -> discord.Embed:
@@ -39,7 +39,9 @@ def build_now_playing_embed(state: "GuildMusicState") -> discord.Embed:
     if track.uploader:
         embed.add_field(name="Canal", value=track.uploader)
     embed.add_field(name="En cola", value=str(len(state.queue)))
-    embed.set_footer(text=_requester_line(track))
+    # Los footers de embed son texto plano: Discord no resuelve menciones ahí,
+    # por eso "Pedido por" va como field en vez de footer.
+    embed.add_field(name="Pedido por", value=_requester_text(track))
     return embed
 
 
