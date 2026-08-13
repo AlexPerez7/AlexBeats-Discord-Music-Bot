@@ -121,7 +121,7 @@ class TrackSelect(discord.ui.Select):
             )
             for index, track in enumerate(tracks)
         ]
-        super().__init__(placeholder="Elegí una canción...", min_values=1, max_values=1, options=options)
+        super().__init__(placeholder="Elige una canción...", min_values=1, max_values=1, options=options)
 
     async def callback(self, interaction: discord.Interaction):
         track = self.tracks[int(self.values[0])]

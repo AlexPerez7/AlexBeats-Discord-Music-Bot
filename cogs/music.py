@@ -62,7 +62,7 @@ class Music(commands.Cog):
         """Llamado por el menú desplegable de `/search` al elegir una canción."""
         if interaction.user.voice is None or interaction.user.voice.channel is None:
             await interaction.response.send_message(
-                embed=build_error_embed("Tenés que estar en un canal de voz."), ephemeral=True
+                embed=build_error_embed("Tienes que estar en un canal de voz."), ephemeral=True
             )
             return
         await interaction.response.send_message(f"➕ **{track.title}** añadida a la cola.", ephemeral=True)
@@ -79,7 +79,7 @@ class Music(commands.Cog):
     @commands.hybrid_command(name="join", description="Conecta el bot a tu canal de voz.")
     async def join(self, ctx: commands.Context):
         if ctx.author.voice is None or ctx.author.voice.channel is None:
-            await ctx.send(embed=build_error_embed("Tenés que estar en un canal de voz para usar este comando."))
+            await ctx.send(embed=build_error_embed("Tienes que estar en un canal de voz para usar este comando."))
             return
         state = self.get_state(ctx.guild.id)
         state.text_channel = ctx.channel
@@ -104,7 +104,7 @@ class Music(commands.Cog):
     async def play(self, ctx: commands.Context, *, query: str):
         await ctx.defer()
         if ctx.author.voice is None or ctx.author.voice.channel is None:
-            await ctx.send(embed=build_error_embed("Tenés que estar en un canal de voz para reproducir música."))
+            await ctx.send(embed=build_error_embed("Tienes que estar en un canal de voz para reproducir música."))
             return
         try:
             track = await resolve_track(query, requester=ctx.author, loop=self.bot.loop)
@@ -117,7 +117,7 @@ class Music(commands.Cog):
         )
         await ctx.send(f"➕ **{track.title}** añadida a la cola.", delete_after=8)
 
-    @commands.hybrid_command(name="search", description="Busca canciones en YouTube y elegí una para reproducir.")
+    @commands.hybrid_command(name="search", description="Busca canciones en YouTube y elige una para reproducir.")
     @app_commands.describe(query="Qué buscar en YouTube")
     async def search(self, ctx: commands.Context, *, query: str):
         await ctx.defer()
@@ -216,7 +216,7 @@ class Music(commands.Cog):
         state = self.states.get(ctx.guild.id)
         track = state.remove(index) if state else None
         if track is None:
-            await ctx.send(embed=build_error_embed("Número inválido. Usá /queue para ver la lista."), delete_after=5)
+            await ctx.send(embed=build_error_embed("Número inválido. Usa /queue para ver la lista."), delete_after=5)
             return
         await ctx.send(f"🗑️ Quité **{track.title}** de la cola.", delete_after=5)
 

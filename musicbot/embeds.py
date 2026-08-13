@@ -72,7 +72,7 @@ def build_queue_embed(state: "GuildMusicState") -> discord.Embed:
 def build_search_embed(query: str, tracks: list[Track]) -> discord.Embed:
     embed = discord.Embed(
         title=f"🔍 Resultados para: {query}",
-        description="Elegí una canción del menú de abajo.",
+        description="Elige una canción del menú de abajo.",
         color=COLOR,
     )
     lines = [f"**{i}.** {t.title} — {format_duration(t.duration)}" for i, t in enumerate(tracks, start=1)]
